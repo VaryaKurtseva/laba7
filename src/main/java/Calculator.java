@@ -32,11 +32,11 @@ public class Calculator {
                 if (num2 != 0) {
                     return num1 / num2;
                 } else {
-                    System.out.println("Ошибка: Деление на ноль!");
+                    System.out.println("Error");
                     return 0;
                 }
             default:
-                System.out.println("Ошибка: Неверный оператор!");
+                System.out.println("Error");
                 return 0;
         }
     }
