@@ -6,24 +6,37 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
 name: Java CI with Gradle
+
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+        with:
+          ref: bondarevyi  
       
-      - name: Set up JDK 17
+      # Добавляем права на выполнение для gradlew
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+        shell: bash
+      
+      - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
+          java-version: '11'
           distribution: 'temurin'
-          java-version: '17'
-          
-      - name: Make gradlew executable  # НОВЫЙ ШАГ
-        run: chmod +x gradlew
-        
-      - name: Build
-        run: ./gradlew build
+      
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: build
