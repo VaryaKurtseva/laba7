@@ -25,8 +25,8 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           
-      - name: Make gradlew executable  # НОВЫЙ ШАГ
+      - name: Make gradlew executable
         run: chmod +x gradlew
         
-      - name: Build
-        run: ./gradlew build
+      - name: Build with diagnostics
+        run: ./gradlew clean build --stacktrace --info
