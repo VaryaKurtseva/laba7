@@ -12,25 +12,58 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    # Основной блок расписания
-    - cron: '30 12 * * 3'  # каждую среду в 12:30;
-    - cron: '0 22 * * 5'  # каждую пятницу в 22:00.
+    - cron: '30 12 * * 3'
+    - cron: '0 22 * * 5'
 
 permissions:
     contents: read
 
 jobs:
   build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        version: [11, 13, 17]
+        include:
+          - os: ubuntu-latest
+            version: 13
+            distribution: 'zulu'
+          - os: macos-latest
+            version: 13
+            distribution: 'zulu'
+          - os: windows-latest
+            version: 13
+            distribution: 'zulu'
 
-    runs-on: ubuntu-latest
+          - os: windows-latest
+            version: 11
+            distribution: 'temurin'
+          - os: ubuntu-latest
+            version: 11
+            distribution: 'temurin'
+          - os: macos-latest
+            version: 11
+            distribution: 'temurin'
+          - os: windows-latest
+            version: 17
+            distribution: 'temurin'
+          - os: ubuntu-latest
+            version: 17
+            distribution: 'temurin'
+          - os: macos-latest
+            version: 17
+            distribution: 'temurin'
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up JDK 17
+    - name: Set up JDK ${{ matrix.version }}
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
-        distribution: 'temurin'
+        java-version: ${{ matrix.version }}
+        distribution: ${{ matrix.distribution}}
     - name: Build with Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582
       with:
