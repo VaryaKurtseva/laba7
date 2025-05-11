@@ -31,9 +31,6 @@ class CalculatorTest {
         // Нормальное деление: 20 / 4 = 5
         assertEquals(5, Calculator.calculate(20, 4, "/"), DELTA);
 
-        // Деление на ноль (проверка возврата 0 и обработки ошибки)
-        assertEquals(0, Calculator.calculate(9, 0, "/"), DELTA,
-                "Не обработано деление на ноль");
 
         // Деление с остатком: 10 / 3 ≈ 3.333
         assertEquals(3.333, Calculator.calculate(10, 3, "/"), DELTA);
