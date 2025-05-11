@@ -6,7 +6,11 @@ class CalculatorTest {
 
     @Test
     void add() {
-        //TODO inser your realisation in test-method add
+         // Умножение положительных: 3 * 2.5 = 7.5
+        assertEquals(7.5, Calculator.calculate(3, 2.5, "*"), DELTA);
+
+        // Умножение на ноль: -5 * 0 = 0
+        assertEquals(0, Calculator.calculate(-5, 0, "*"), DELTA);
     }
 
     @Test
