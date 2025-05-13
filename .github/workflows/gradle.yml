@@ -24,36 +24,6 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         version: [11, 13, 17]
-        include:
-          - os: ubuntu-latest
-            version: 13
-            distribution: 'zulu'
-          - os: macos-latest
-            version: 13
-            distribution: 'zulu'
-          - os: windows-latest
-            version: 13
-            distribution: 'zulu'
-
-          - os: windows-latest
-            version: 11
-            distribution: 'temurin'
-          - os: ubuntu-latest
-            version: 11
-            distribution: 'temurin'
-          - os: macos-latest
-            version: 11
-            distribution: 'temurin'
-          - os: windows-latest
-            version: 17
-            distribution: 'temurin'
-          - os: ubuntu-latest
-            version: 17
-            distribution: 'temurin'
-          - os: macos-latest
-            version: 17
-            distribution: 'temurin'
-      fail-fast: false
 
     runs-on: ${{ matrix.os }}
 
