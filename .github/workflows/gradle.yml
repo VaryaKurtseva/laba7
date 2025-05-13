@@ -24,6 +24,18 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         version: [11, 13, 17]
+         # Дополнительные версии (не-LTS)
+        include:
+          - java: '13' # Явное указание версии java
+            os: ubuntu-latest  # Явное указание os
+            distribution: zulu
+          - java: '13'
+            os: macos-latest   
+            distribution: zulu
+          - java: '13'
+            os: windows-latest
+            distribution: zulu
+
 
     runs-on: ${{ matrix.os }}
 
